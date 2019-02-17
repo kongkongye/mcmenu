@@ -78,16 +78,19 @@ public class TreeMenu extends AbstractMenu {
         if (!Strings.isNullOrEmpty(config.getCommand())) {
             boolean success = McMenuApi.getCommandService().execute(getPlayer(), config.getCommand());
             if (success) {
-                switch (config.getMode()) {
-                    case stay:
-                        break;
-                    case back:
-                        McMenuApi.getActionManager().back(getPlayer());
-                        break;
-                    case exit://返回null会退出菜单
-                        return null;
-                    default:
-                        throw new RuntimeException();
+                //任然是当前菜单,菜单模式才会生效
+                if (McMenuApi.getMenuManager().getMenu(getPlayer()) == this) {
+                    switch (config.getMode()) {
+                        case stay:
+                            break;
+                        case back:
+                            McMenuApi.getActionManager().back(getPlayer());
+                            break;
+                        case exit://返回null会退出菜单
+                            return null;
+                        default:
+                            throw new RuntimeException();
+                    }
                 }
 
             }

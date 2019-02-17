@@ -184,6 +184,58 @@ public class McMenuPlugin extends PluginBase implements Listener {
                 //提示
                 Util.send(sender, "重载配置.");
                 return true;
+            }else if (args[0].equalsIgnoreCase("join")) {
+                if (args.length >= 2) {
+                    if (p == null) {
+                        Util.send(sender, "此命令只能玩家发出!");
+                        return false;
+                    }
+                    String menuName = args[1];
+                    int slot;
+                    if (args.length >= 3) {
+                        slot = Integer.parseInt(args[2]);
+                    }else {
+                        Menu menu = McMenuApi.getMenuManager().getMenu(p);
+                        slot = menu != null?menu.getSlot():p.getInventory().getHeldItemSlot();
+                    }
+                    cmdJoin(p, menuName, slot);
+                    return true;
+                }
+            }else if (args[0].equalsIgnoreCase("left")) {
+                if (p == null) {
+                    Util.send(sender, "此命令只能玩家发出!");
+                    return false;
+                }
+                cmdLeft(p);
+                return true;
+            }else if (args[0].equalsIgnoreCase("right")) {
+                if (p == null) {
+                    Util.send(sender, "此命令只能玩家发出!");
+                    return false;
+                }
+                cmdRight(p);
+                return true;
+            }else if (args[0].equalsIgnoreCase("confirm")) {
+                if (p == null) {
+                    Util.send(sender, "此命令只能玩家发出!");
+                    return false;
+                }
+                cmdConfirm(p);
+                return true;
+            }else if (args[0].equalsIgnoreCase("back")) {
+                if (p == null) {
+                    Util.send(sender, "此命令只能玩家发出!");
+                    return false;
+                }
+                cmdBack(p);
+                return true;
+            }else if (args[0].equalsIgnoreCase("exit")) {
+                if (p == null) {
+                    Util.send(sender, "此命令只能玩家发出!");
+                    return false;
+                }
+                cmdExit(p);
+                return true;
             }
         }
         return false;
@@ -220,6 +272,30 @@ public class McMenuPlugin extends PluginBase implements Listener {
             e.printStackTrace();
             Util.send(p, "&c获取菜单出错: &e{0}", e.getMessage());
         }
+    }
+
+    private void cmdJoin(Player p, String menuName, int slot) {
+        McMenuApi.getActionManager().join(p, slot, menuName);
+    }
+
+    private void cmdLeft(Player p) {
+        McMenuApi.getActionManager().left(p);
+    }
+
+    private void cmdRight(Player p) {
+        McMenuApi.getActionManager().right(p);
+    }
+
+    private void cmdConfirm(Player p) {
+        McMenuApi.getActionManager().confirm(p);
+    }
+
+    private void cmdBack(Player p) {
+        McMenuApi.getActionManager().back(p);
+    }
+
+    private void cmdExit(Player p) {
+        McMenuApi.getActionManager().exit(p);
     }
 
     /**
