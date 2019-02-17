@@ -169,7 +169,16 @@ public class McMenuPlugin extends PluginBase implements Listener {
         }
 
         if (args.length >= 1) {
-            if (args[0].equalsIgnoreCase("get")) {
+            if (args[0].equalsIgnoreCase("reload")) {
+                if (p != null && !p.isOp()) {
+                    Util.send(sender, "没有权限重载配置!");
+                    return false;
+                }
+                McMenuApi.reload();
+                //提示
+                Util.send(sender, "重载配置.");
+                return true;
+            }else if (args[0].equalsIgnoreCase("get")) {
                 if (args.length >= 2) {
                     if (p == null) {
                         Util.send(sender, "此命令只能玩家发出!");
@@ -179,11 +188,6 @@ public class McMenuPlugin extends PluginBase implements Listener {
                     cmdGet(p, menuName);
                     return true;
                 }
-            }else if (args[0].equalsIgnoreCase("reload")) {
-                McMenuApi.reload();
-                //提示
-                Util.send(sender, "重载配置.");
-                return true;
             }else if (args[0].equalsIgnoreCase("join")) {
                 if (args.length >= 2) {
                     if (p == null) {
@@ -246,8 +250,8 @@ public class McMenuPlugin extends PluginBase implements Listener {
      */
     private void cmdGet(Player p, String menuName) {
         //权限
-        if (!p.isOp()) {
-            Util.send(p, "&c没有权限获取菜单!");
+        if (!p.isOp() && !config.isGetCmd()) {
+            Util.send(p, "&c服务器禁止非OP通过此方式获取菜单!");
             return;
         }
         //请将要设置菜单的物品放在手上
@@ -267,10 +271,10 @@ public class McMenuPlugin extends PluginBase implements Listener {
             item = McMenuApi.getItemManager().saveMenuInfo(item, menuName);
             p.getInventory().setItemInHand(item);
             //提示
-            Util.send(p, "&a成功设置手上的物品为菜单: &e{0}", menuName);
+            Util.send(p, "&a成功设置菜单: &e{0}", menuName);
         } catch (Exception e) {
             e.printStackTrace();
-            Util.send(p, "&c获取菜单出错: &e{0}", e.getMessage());
+            Util.send(p, "&c设置菜单出错: &e{0}", e.getMessage());
         }
     }
 

@@ -10,6 +10,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class Config {
+    private boolean getCmd;
+
     private boolean exitMoveEnable;
     private double exitMoveDistance;
     private boolean exitOpenInventoryEnable;
@@ -41,6 +43,8 @@ public class Config {
     private Sound soundBack;
 
     public void load(cn.nukkit.utils.Config config) {
+        getCmd = config.getBoolean("get.cmd");
+
         exitMoveEnable = config.getBoolean("exit.move.enable");
         exitMoveDistance = config.getDouble("exit.move.distance");
         exitOpenInventoryEnable = config.getBoolean("exit.openInventory.enable");
@@ -93,6 +97,10 @@ public class Config {
         if (!Strings.isNullOrEmpty(soundBackStr)) {
             soundBack = Sound.valueOf(soundBackStr);
         }
+    }
+
+    public boolean isGetCmd() {
+        return getCmd;
     }
 
     public boolean isExitMoveEnable() {
