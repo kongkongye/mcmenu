@@ -260,6 +260,11 @@ public class McMenuPlugin extends PluginBase implements Listener {
             Util.send(p, "&c请将要设置菜单的物品放在手上!");
             return;
         }
+        //非普通物品
+        if (!isNormalItem(item)) {
+            Util.send(p, "&c此物品可能包含额外的信息,无法设置为菜单!");
+            return;
+        }
         //菜单不存在
         MenuFactory menuFactory = McMenuApi.getMenuManager().getMenuFactory(menuName);
         if (menuFactory == null) {
@@ -276,6 +281,13 @@ public class McMenuPlugin extends PluginBase implements Listener {
             e.printStackTrace();
             Util.send(p, "&c设置菜单出错: &e{0}", e.getMessage());
         }
+    }
+
+    /**
+     * 是否是普通物品
+     */
+    private boolean isNormalItem(Item item) {
+        return !item.hasCompoundTag();
     }
 
     private void cmdJoin(Player p, String menuName, int slot) {
