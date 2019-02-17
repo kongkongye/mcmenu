@@ -61,7 +61,7 @@ public class McTreeMenuManager implements TreeMenuManager {
     private void reloadFile(File file) {
         if (file.exists() && file.isFile() && file.getName().endsWith(".yml")) {
             Config config = new Config(file);
-            String name = file.getName().substring(0, file.getName().length()-file.getName().lastIndexOf("."));
+            String name = file.getName().substring(0, file.getName().lastIndexOf("."));
             boolean loop = config.getBoolean("loop");
             List<TreeMenuConfig> treeMenuConfigs = new ArrayList<>();
             List menus = config.getList("menus", new ArrayList());

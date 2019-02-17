@@ -3,6 +3,7 @@ package com.kongkongye.np.mcmenu.item;
 import cn.nukkit.item.Item;
 import com.kongkongye.np.mcmenu.McMenuPlugin;
 import com.kongkongye.np.mcmenu.api.item.ItemManager;
+import com.kongkongye.np.mcmenu.util.ParamUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +37,8 @@ public class McItemManager implements ItemManager {
         List<String> lore = new ArrayList<>();
         //check
         lore.add(McMenuPlugin.config.getLoreCheck());
+        //title
+        item = item.setCustomName(ParamUtil.convert(McMenuPlugin.config.getLoreTitle(), false, menuName));
         //descriptions
         lore.addAll(McMenuPlugin.config.getLoreDescriptions());
         //data

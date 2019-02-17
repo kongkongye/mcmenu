@@ -15,6 +15,7 @@ public class Config {
     private boolean exitOpenInventoryEnable;
 
     private String loreCheck;
+    private String loreTitle;
     private List<String> loreDescriptions;
     private String loreMenu;
     private int prefixLength;
@@ -45,6 +46,7 @@ public class Config {
         exitOpenInventoryEnable = config.getBoolean("exit.openInventory.enable");
 
         loreCheck = ColorUtil.convertColor(config.getString("lore.check"));
+        loreTitle = ColorUtil.convertColor(config.getString("lore.title"));
         loreDescriptions = config.getStringList("lore.descriptions").stream().map(ColorUtil::convertColor).collect(Collectors.toList());
         loreMenu = ColorUtil.convertColor(config.getString("lore.menu"));
         prefixLength = loreMenu.indexOf("?");
@@ -107,6 +109,10 @@ public class Config {
 
     public String getLoreCheck() {
         return loreCheck;
+    }
+
+    public String getLoreTitle() {
+        return loreTitle;
     }
 
     public List<String> getLoreDescriptions() {

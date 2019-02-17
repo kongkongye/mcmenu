@@ -6,6 +6,7 @@ import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
 import com.kongkongye.np.mcmenu.api.McMenuApi;
 import com.kongkongye.np.mcmenu.api.display.Display;
+import com.kongkongye.np.mcmenu.api.menu.Menu;
 import com.kongkongye.np.mcmenu.api.menu.MenuFactory;
 import com.kongkongye.np.mcmenu.display.McDisplay;
 import com.kongkongye.np.mcmenu.menu.AbstractMenu;
@@ -79,7 +80,8 @@ public class TreeMenu extends AbstractMenu {
             boolean success = McMenuApi.getCommandService().execute(getPlayer(), config.getCommand());
             if (success) {
                 //任然是当前菜单,菜单模式才会生效
-                if (McMenuApi.getMenuManager().getMenu(getPlayer()) == this) {
+                Menu menu = McMenuApi.getMenuManager().getMenu(getPlayer());
+                if (menu == this) {
                     switch (config.getMode()) {
                         case stay:
                             break;
@@ -91,8 +93,9 @@ public class TreeMenu extends AbstractMenu {
                         default:
                             throw new RuntimeException();
                     }
+                }else {
+                    return menu != null?menu.getDisplay():null;
                 }
-
             }
         }
         return getDisplay();
