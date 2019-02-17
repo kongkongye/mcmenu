@@ -1,0 +1,36 @@
+#文件名为'菜单名.yml'
+
+#是否循环,true时,在最后向后移到第一项,在最前向前移到最后项
+loop: true
+
+#菜单树状结构
+#全局变量使用PlaceholderAPI插件,具体格式请查看https://nukkitx.com/resources/placeholderapi.104/
+menus:
+    #菜单名,可以包含全局变量
+  - name: "传送"
+    #菜单描述,可选,可以包含全局变量,可使用颜色字符&
+    description: "传送功能"
+    #命令(确认时执行的命令,无需加命令前缀'/'),可选
+    command: ""
+    #模式,指成功执行命令后的操作(执行失败将无操作),默认exit
+    #  stay: 停留
+    #  back: 返回
+    #  exit: 退出
+    mode: "exit"
+    #子菜单(确认时进入子菜单),可选
+    sub:
+      - name: "重生点"
+        description: "传送重生点"
+        command: "spawn"
+      - name: "返回"
+        description: "返回上个传送点"
+        command: "back"
+      - name: "家"
+        description: "传送到家"
+        command: "home"
+  - name: "菜单重载"
+    command: "mcmenu reload"
+  - name: "宠物"
+    command: "pet"
+  - name: "你好"
+    description: "&a%player% &7(&d%player_ping%ms&7)"

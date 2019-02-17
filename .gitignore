@@ -1,0 +1,8 @@
+.idea
+*.iml
+*.class
+out
+target
+node_modules
+logs
+classes

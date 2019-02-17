@@ -1,0 +1,34 @@
+#name, main, version and api are required
+name: MCMenu
+main: com.kongkongye.np.mcmenu.McMenuPlugin
+#remember version and api is string, don't write it like this: 1.0.0, or there will be an exception
+version: "1.0.0"
+api: ["1.0.5"]
+load: POSTWORLD
+author: kongkongye
+description: McMenu plugin
+website: http://kongkongye.com
+# These dependencies are required for the plugin to start.
+depend: ["PlaceholderAPI"]
+# These dependencies are not required.
+#softdepend: ["PluginA", "PluginB"]
+# Log prefix in console
+prefix: "MCMenu"
+# Plugin will be loaded before these. Any cyclic loadbefore's or dependencies's will throw errors!
+#loadbefore: ["ImportantPlugin"]
+
+commands:
+  mcmenu:
+    description: MCMenu command
+    usage: "/mcmenu"
+#    aliases: ["", "nukkitexample"]
+#    permission: exampleplugin.command.example
+#    permission-message: "You do not have the required permission to run /example"
+#permissions:
+#  exampleplugin.command.example:
+#    description: "Allows the user to run the example command"
+#    default: true
+#    children:
+#     exampleplugin.command.example.test:
+#       description: "Use the test feature in the example command"
+#       default: true
