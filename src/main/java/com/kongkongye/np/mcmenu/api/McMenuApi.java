@@ -9,6 +9,7 @@ import com.kongkongye.np.mcmenu.api.menu.MenuManager;
 import com.kongkongye.np.mcmenu.api.menu.tree.TreeMenuManager;
 import com.kongkongye.np.mcmenu.api.service.CommandService;
 import com.kongkongye.np.mcmenu.display.McDisplayManager;
+import com.kongkongye.np.mcmenu.event.MenuReloadEvent;
 import com.kongkongye.np.mcmenu.menu.tree.McTreeMenuManager;
 import com.kongkongye.np.mcmenu.util.LogUtil;
 
@@ -31,6 +32,9 @@ public class McMenuApi {
         ((McTreeMenuManager)getTreeMenuManager()).reload();
         //显示管理器重载
         ((McDisplayManager)getDisplayManager()).reload();
+        //事件
+        MenuReloadEvent menuReloadEvent = new MenuReloadEvent();
+        McMenuPlugin.instance.getServer().getPluginManager().callEvent(menuReloadEvent);
     }
 
     /**
