@@ -40,6 +40,8 @@ public class McMenuPlugin extends PluginBase implements Listener {
 
     @Override
     public void onLoad() {
+        //读取配置
+        reload();
         //McMenuImpl
         ((McMenuImpl)McMenuApi.mcMenu).initOnLoad();
         //注册服务
@@ -48,12 +50,10 @@ public class McMenuPlugin extends PluginBase implements Listener {
 
     @Override
     public void onEnable() {
-        //读取配置
-        reload();
-        //注册事件
-        getServer().getPluginManager().registerEvents(this, this);
         //McMenuImpl
         ((McMenuImpl)McMenuApi.mcMenu).initOnEnable();
+        //注册事件
+        getServer().getPluginManager().registerEvents(this, this);
     }
 
     @Override
@@ -170,17 +170,17 @@ public class McMenuPlugin extends PluginBase implements Listener {
         if (args.length >= 1) {
             if (args[0].equalsIgnoreCase("reload")) {
                 if (p != null && !p.isOp()) {
-                    Util.send(sender, "没有权限重载配置!");
+                    Util.send(sender, 5000);
                     return false;
                 }
                 McMenuApi.reload();
                 //提示
-                Util.send(sender, "重载配置.");
+                Util.send(sender, 5010);
                 return true;
             }else if (args[0].equalsIgnoreCase("get")) {
                 if (args.length >= 2) {
                     if (p == null) {
-                        Util.send(sender, "此命令只能玩家发出!");
+                        Util.send(sender, 5020);
                         return false;
                     }
                     String menuName = args[1];
@@ -190,7 +190,7 @@ public class McMenuPlugin extends PluginBase implements Listener {
             }else if (args[0].equalsIgnoreCase("join")) {
                 if (args.length >= 2) {
                     if (p == null) {
-                        Util.send(sender, "此命令只能玩家发出!");
+                        Util.send(sender, 5020);
                         return false;
                     }
                     String menuName = args[1];
@@ -206,35 +206,35 @@ public class McMenuPlugin extends PluginBase implements Listener {
                 }
             }else if (args[0].equalsIgnoreCase("left")) {
                 if (p == null) {
-                    Util.send(sender, "此命令只能玩家发出!");
+                    Util.send(sender, 5020);
                     return false;
                 }
                 cmdLeft(p);
                 return true;
             }else if (args[0].equalsIgnoreCase("right")) {
                 if (p == null) {
-                    Util.send(sender, "此命令只能玩家发出!");
+                    Util.send(sender, 5020);
                     return false;
                 }
                 cmdRight(p);
                 return true;
             }else if (args[0].equalsIgnoreCase("confirm")) {
                 if (p == null) {
-                    Util.send(sender, "此命令只能玩家发出!");
+                    Util.send(sender, 5020);
                     return false;
                 }
                 cmdConfirm(p);
                 return true;
             }else if (args[0].equalsIgnoreCase("back")) {
                 if (p == null) {
-                    Util.send(sender, "此命令只能玩家发出!");
+                    Util.send(sender, 5020);
                     return false;
                 }
                 cmdBack(p);
                 return true;
             }else if (args[0].equalsIgnoreCase("exit")) {
                 if (p == null) {
-                    Util.send(sender, "此命令只能玩家发出!");
+                    Util.send(sender, 5020);
                     return false;
                 }
                 cmdExit(p);
@@ -250,24 +250,24 @@ public class McMenuPlugin extends PluginBase implements Listener {
     private void cmdGet(Player p, String menuName) {
         //权限
         if (!p.isOp() && !config.isGetCmd()) {
-            Util.send(p, "&c服务器禁止非OP通过此方式获取菜单!");
+            Util.send(p, 5030);
             return;
         }
         //请将要设置菜单的物品放在手上
         Item item = p.getInventory().getItemInHand();
         if (item == null || item.getId() == 0) {
-            Util.send(p, "&c请将要设置菜单的物品放在手上!");
+            Util.send(p, 5040);
             return;
         }
         //非普通物品
         if (!isNormalItem(item)) {
-            Util.send(p, "&c此物品可能包含额外的信息,无法设置为菜单!");
+            Util.send(p, 5050);
             return;
         }
         //菜单不存在
         MenuFactory menuFactory = McMenuApi.getMenuManager().getMenuFactory(menuName);
         if (menuFactory == null) {
-            Util.send(p, "&c菜单不存在: &e{0}", menuName);
+            Util.send(p, 5060, menuName);
             return;
         }
         //获取
@@ -275,10 +275,10 @@ public class McMenuPlugin extends PluginBase implements Listener {
             item = McMenuApi.getItemManager().saveMenuInfo(item, menuName);
             p.getInventory().setItemInHand(item);
             //提示
-            Util.send(p, "&a成功设置菜单: &e{0}", menuName);
+            Util.send(p, 5070, menuName);
         } catch (Exception e) {
             e.printStackTrace();
-            Util.send(p, "&c设置菜单出错: &e{0}", e.getMessage());
+            Util.send(p, 5080, e.getMessage());
         }
     }
 

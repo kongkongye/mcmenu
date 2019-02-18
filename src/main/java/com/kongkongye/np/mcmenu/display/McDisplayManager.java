@@ -11,6 +11,7 @@ import com.kongkongye.np.mcmenu.config.Config;
 import com.kongkongye.np.mcmenu.display.bar.*;
 import com.kongkongye.np.mcmenu.util.ColorUtil;
 import com.kongkongye.np.mcmenu.util.ParamUtil;
+import com.kongkongye.np.mcmenu.util.Util;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -94,6 +95,8 @@ public class McDisplayManager implements DisplayManager {
         Preconditions.checkArgument(displayBars.putIfAbsent(displayBar.getName(), displayBar) == null,
                 "显示条已经注册: "+displayBar.getName());
         displayBarContexts.put(displayBar, new Context());
+        //日志
+        Util.info(0, 1080, displayBar.getName());
     }
 
     @Override

@@ -26,7 +26,7 @@ public class McMenuManager implements MenuManager {
     public void register(MenuFactory menuFactory) {
         menuFactories.put(menuFactory.getName(), menuFactory);
         //日志
-        Util.info(1, "注册菜单: "+menuFactory.getName());
+        Util.info(1, 1050, menuFactory.getName());
     }
 
     @Override

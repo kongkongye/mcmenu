@@ -47,6 +47,13 @@ public class Util {
     /**
      * @param level >=0
      */
+    public static void info(int level, int id, Object... args) {
+        McMenuPlugin.instance.getLogger().info(getSpaces(level)+McMenuApi.getLangManager().get(id, args));
+    }
+
+    /**
+     * @param level >=0
+     */
     public static void error(int level, String msg, Throwable t) {
         McMenuPlugin.instance.getLogger().error(getSpaces(level)+msg, t);
     }

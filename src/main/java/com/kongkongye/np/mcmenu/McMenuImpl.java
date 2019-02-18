@@ -29,6 +29,7 @@ public class McMenuImpl implements McMenu {
     }
 
     public void initOnLoad() {
+        langManager.initOnLoad();
         displayManager.initOnLoad();
         treeMenuManager.initOnLoad();
     }
@@ -36,7 +37,6 @@ public class McMenuImpl implements McMenu {
     public void initOnEnable() {
         treeMenuManager.initOnEnable();
         displayManager.initOnEnable();
-        langManager.initOnEnable();
     }
 
     public void initOnDisable() {

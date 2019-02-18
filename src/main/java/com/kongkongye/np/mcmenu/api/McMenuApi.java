@@ -22,18 +22,18 @@ public class McMenuApi {
      * 重载插件
      */
     public static void reload() {
-        Util.info(0, "插件重载...");
+        Util.info(0, 1000);
         //所有玩家退出菜单
-        Util.info(1, "所有玩家退出菜单...");
+        Util.info(1, 1010);
         McMenuPlugin.instance.getServer().getOnlinePlayers().values().forEach(getActionManager()::exit);
         //配置重载
-        Util.info(1, "配置重载...");
+        Util.info(1, 1020);
         McMenuPlugin.instance.reload();
         //语言重载
-        Util.info(1, "语言重载...");
+        Util.info(1, 1030);
         ((McLangManager)getLangManager()).reload();
         //树状菜单重载
-        Util.info(1, "树状菜单重载...");
+        Util.info(1, 1040);
         ((McTreeMenuManager)getTreeMenuManager()).reload();
         //显示管理器重载
         ((McDisplayManager)getDisplayManager()).reload();

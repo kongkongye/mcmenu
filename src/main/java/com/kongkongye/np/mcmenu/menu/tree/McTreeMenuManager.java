@@ -7,6 +7,7 @@ import com.kongkongye.np.mcmenu.Constants;
 import com.kongkongye.np.mcmenu.McMenuPlugin;
 import com.kongkongye.np.mcmenu.api.McMenuApi;
 import com.kongkongye.np.mcmenu.api.menu.tree.TreeMenuManager;
+import com.kongkongye.np.mcmenu.util.Util;
 
 import java.io.File;
 import java.util.*;
@@ -42,11 +43,15 @@ public class McTreeMenuManager implements TreeMenuManager {
     @Override
     public void registerFolder(File folder) {
         folders.add(folder);
+        //日志
+        Util.info(0, 1060, folder.getPath());
     }
 
     @Override
     public void registerFile(File file) {
         files.add(file);
+        //日志
+        Util.info(0, 1070, file.getPath());
     }
 
     private void reloadFolder(File folder) {

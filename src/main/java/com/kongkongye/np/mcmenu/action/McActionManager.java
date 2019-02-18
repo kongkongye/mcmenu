@@ -18,7 +18,7 @@ public class McActionManager implements ActionManager {
         //菜单未找到
         MenuFactory menuFactory = McMenuApi.getMenuManager().getMenuFactory(menuName);
         if (menuFactory == null) {
-            Util.send(player, "&c菜单未找到: &e{0}", menuName);
+            Util.send(player, 5090, menuName);
             return null;
         }
 
@@ -49,7 +49,7 @@ public class McActionManager implements ActionManager {
         McMenuPlugin.instance.getServer().getPluginManager().callEvent(menuJoinEvent);
 
         //提示
-        Util.send(menuJoinEvent.getPlayer(), "&e进入菜单: &d{0}", menuName);
+        Util.send(menuJoinEvent.getPlayer(), 5100, menuName);
 
         return menu;
     }
@@ -129,7 +129,7 @@ public class McActionManager implements ActionManager {
             MenuExitEvent menuExitEvent = new MenuExitEvent(p, menu);
             McMenuPlugin.instance.getServer().getPluginManager().callEvent(menuExitEvent);
             //提示
-            Util.send(p, "&7退出菜单.");
+            Util.send(p, 5110);
         }
     }
 }

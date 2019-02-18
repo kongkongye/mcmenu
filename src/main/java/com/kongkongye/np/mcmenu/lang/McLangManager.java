@@ -16,7 +16,7 @@ public class McLangManager implements LangManager{
 
     private Map<Integer, String> lang;
 
-    public void initOnEnable() {
+    public void initOnLoad() {
         //重载语言
         reload();
     }
