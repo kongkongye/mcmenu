@@ -51,6 +51,8 @@ display:
   #content refresh, format is 'display-bar-name interval(unit is tick)', default is no refresh
   #some display will fadeout, so refresh is needed
   refresh:
+    - "title 60"
+    - "subTitle 60"
     - "tip 30"
     - "actionbar 30"
     - "popup 30"

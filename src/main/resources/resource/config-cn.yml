@@ -52,6 +52,8 @@ display:
   #刷新,格式'显示条 刷新间隔(单位tick)',默认不刷新
   #有些显示会淡化,所以需要刷新
   refresh:
+    - "title 60"
+    - "subTitle 60"
     - "tip 30"
     - "actionbar 30"
     - "popup 30"

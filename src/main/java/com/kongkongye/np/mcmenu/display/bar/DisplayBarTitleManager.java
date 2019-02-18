@@ -1,12 +1,14 @@
 package com.kongkongye.np.mcmenu.display.bar;
 
 import cn.nukkit.Player;
+import com.google.common.base.Strings;
 import com.kongkongye.np.mcmenu.api.McMenuApi;
 import com.kongkongye.np.mcmenu.api.display.DisplayBar;
 import com.kongkongye.np.mcmenu.display.McDisplayManager;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * title&subTitle display manager
@@ -58,8 +60,14 @@ public class DisplayBarTitleManager {
     public void clearTitle(Player player) {
         Context context = contexts.get(player);
         if (context != null) {
-            context.title = "";
-            display(player);
+            boolean extend;
+            if (!Strings.isNullOrEmpty(context.title)) {
+                extend = false;
+                context.title = "";
+            }else {
+                extend = true;
+            }
+            display(player, extend);
         }
     }
 
@@ -69,22 +77,41 @@ public class DisplayBarTitleManager {
     public void clearSubTitle(Player player) {
         Context context = contexts.get(player);
         if (context != null) {
-            context.subTitle = "";
-            display(player);
+            boolean extend;
+            if (!Strings.isNullOrEmpty(context.subTitle)) {
+                extend = false;
+                context.subTitle = "";
+            }else {
+                extend = true;
+            }
+            display(player, extend);
         }
     }
 
     public void displayTitle(Player player, String content) {
-        contexts.computeIfAbsent(player, p -> new Context()).title = content;
-        display(player);
+        String oldTitle = contexts.computeIfAbsent(player, p -> new Context()).title;
+        if (Objects.equals(oldTitle, content)) {
+            display(player, true);
+        }else {
+            contexts.computeIfAbsent(player, p -> new Context()).title = content;
+            display(player, false);
+        }
     }
 
     public void displaySubTitle(Player player, String content) {
-        contexts.computeIfAbsent(player, p -> new Context()).subTitle = content;
-        display(player);
+        String oldSubTitle = contexts.computeIfAbsent(player, p -> new Context()).subTitle;
+        if (Objects.equals(oldSubTitle, content)) {
+            display(player, true);
+        }else {
+            contexts.computeIfAbsent(player, p -> new Context()).subTitle = content;
+            display(player, false);
+        }
     }
 
-    private void display(Player player) {
+    /**
+     * @param last 是否延长时间
+     */
+    private void display(Player player, boolean last) {
         Context context = contexts.get(player);
         if (context != null) {
             String title = context.title;
@@ -101,7 +128,11 @@ public class DisplayBarTitleManager {
                 //clear title
                 player.clearTitle();
             }else {
-                player.sendTitle(title, subTitle, 0, 20*60*60, 0);
+                if (last) {
+                    player.setTitleAnimationTimes(0, 20*60*60, 0);
+                }else {
+                    player.sendTitle(title, subTitle, 0, 20*60*60, 0);
+                }
             }
         }
     }
