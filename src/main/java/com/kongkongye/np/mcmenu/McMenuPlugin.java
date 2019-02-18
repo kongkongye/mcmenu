@@ -100,6 +100,26 @@ public class McMenuPlugin extends PluginBase implements Listener {
         Location location = player.getLocation();
         Config config = McMenuPlugin.config;
         Menu menu = McMenuApi.getMenuManager().getMenu(player);
+        Item item = event.getItem();
+        String menuName = McMenuApi.getItemManager().getMenuName(item);
+
+        //check join menu
+        if (menuName != null) {
+            boolean notJoin = menu != null && menu.getSlot() == event.getSlot() && menu.getMenuFactory().getName().equals(menuName);
+            if (!notJoin) {
+                //join menu
+                McMenuApi.getActionManager().join(player, event.getSlot(), menuName);
+                //cancel event
+//                event.setCancelled();
+                stick(player);
+                //sound
+                if (config.getSoundJoin() != null) {
+                    player.getLevel().addSound(location, config.getSoundJoin(), config.getSoundVolume(), config.getSoundPitch(), player);
+                }
+                return;
+            }
+        }
+
         if (menu != null) {//in menu
             int slot = event.getSlot();
             if (slot == 0) {//move left
@@ -137,20 +157,6 @@ public class McMenuPlugin extends PluginBase implements Listener {
                 //sound
                 if (config.getSoundBack() != null) {
                     player.getLevel().addSound(location, config.getSoundBack(), config.getSoundVolume(), config.getSoundPitch(), player);
-                }
-            }
-        }else {//not in menu
-            Item item = event.getItem();
-            String menuName = McMenuApi.getItemManager().getMenuName(item);
-            if (menuName != null) {
-                //join menu
-                McMenuApi.getActionManager().join(player, event.getSlot(), menuName);
-                //cancel event
-//                event.setCancelled();
-                stick(player);
-                //sound
-                if (config.getSoundJoin() != null) {
-                    player.getLevel().addSound(location, config.getSoundJoin(), config.getSoundVolume(), config.getSoundPitch(), player);
                 }
             }
         }
