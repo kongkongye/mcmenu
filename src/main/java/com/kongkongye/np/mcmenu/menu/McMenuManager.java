@@ -5,7 +5,7 @@ import com.google.common.base.Preconditions;
 import com.kongkongye.np.mcmenu.api.menu.Menu;
 import com.kongkongye.np.mcmenu.api.menu.MenuFactory;
 import com.kongkongye.np.mcmenu.api.menu.MenuManager;
-import com.kongkongye.np.mcmenu.util.LogUtil;
+import com.kongkongye.np.mcmenu.util.Util;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -26,7 +26,7 @@ public class McMenuManager implements MenuManager {
     public void register(MenuFactory menuFactory) {
         menuFactories.put(menuFactory.getName(), menuFactory);
         //日志
-        LogUtil.info(1, "注册菜单: "+menuFactory.getName());
+        Util.info(1, "注册菜单: "+menuFactory.getName());
     }
 
     @Override

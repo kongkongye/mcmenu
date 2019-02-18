@@ -3,6 +3,7 @@ package com.kongkongye.np.mcmenu.api.menu;
 import com.kongkongye.np.mcmenu.api.action.ActionManager;
 import com.kongkongye.np.mcmenu.api.display.DisplayManager;
 import com.kongkongye.np.mcmenu.api.item.ItemManager;
+import com.kongkongye.np.mcmenu.api.lang.LangManager;
 import com.kongkongye.np.mcmenu.api.menu.tree.TreeMenuManager;
 import com.kongkongye.np.mcmenu.api.service.CommandService;
 
@@ -18,4 +19,6 @@ public interface McMenu {
     CommandService getCommandService();
 
     TreeMenuManager getTreeMenuManager();
+
+    LangManager getLangManager();
 }

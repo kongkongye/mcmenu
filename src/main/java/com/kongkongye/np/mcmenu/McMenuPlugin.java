@@ -20,7 +20,6 @@ import com.kongkongye.np.mcmenu.api.service.CommandService;
 import com.kongkongye.np.mcmenu.config.Config;
 import com.kongkongye.np.mcmenu.menu.AbstractMenu;
 import com.kongkongye.np.mcmenu.service.McCommandService;
-import com.kongkongye.np.mcmenu.util.LogUtil;
 import com.kongkongye.np.mcmenu.util.Util;
 
 import java.io.File;
@@ -333,10 +332,10 @@ public class McMenuPlugin extends PluginBase implements Listener {
     private void generate() {
         //配置目录已经存在
         if (getDataFolder().exists()) {
-            LogUtil.info(1, "插件配置目录存在,不生成文件.");
+            Util.info(1, "插件配置目录存在,不生成文件.");
             return;
         }
-        LogUtil.info(1, "生成文件.");
+        Util.info(1, "生成文件.");
 
         ZipInputStream jis = null;
         FileOutputStream fos = null;

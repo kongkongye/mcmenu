@@ -2,6 +2,9 @@ package com.kongkongye.np.mcmenu.util;
 
 import cn.nukkit.command.CommandSender;
 import cn.nukkit.utils.ConfigSection;
+import com.kongkongye.np.mcmenu.Constants;
+import com.kongkongye.np.mcmenu.McMenuPlugin;
+import com.kongkongye.np.mcmenu.api.McMenuApi;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
 
@@ -15,6 +18,14 @@ import java.util.zip.GZIPOutputStream;
 public class Util {
     /**
      * 给玩家发送信息
+     * @param id 语言id
+     */
+    public static void send(CommandSender sender, int id, Object... args) {
+        sender.sendMessage(McMenuApi.getLangManager().get(id, args));
+    }
+
+    /**
+     * 给玩家发送信息
      * @param msg 会转换颜色字符
      */
     public static void send(CommandSender sender, String msg, Object... args) {
@@ -24,6 +35,29 @@ public class Util {
         msg = ColorUtil.convertColor(msg);
         //发送
         sender.sendMessage(msg);
+    }
+
+    /**
+     * @param level >=0
+     */
+    public static void info(int level, String msg) {
+        McMenuPlugin.instance.getLogger().info(getSpaces(level)+msg);
+    }
+
+    /**
+     * @param level >=0
+     */
+    public static void error(int level, String msg, Throwable t) {
+        McMenuPlugin.instance.getLogger().error(getSpaces(level)+msg, t);
+    }
+
+    private static String getSpaces(int level) {
+        StringBuilder sb = new StringBuilder();
+        int max = level * Constants.LEVEL_SPACE;
+        for (int i=0;i<max;i++) {
+            sb.append(" ");
+        }
+        return sb.toString();
     }
 
     /**

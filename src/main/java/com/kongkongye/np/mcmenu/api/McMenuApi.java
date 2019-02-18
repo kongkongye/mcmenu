@@ -4,14 +4,16 @@ import com.kongkongye.np.mcmenu.McMenuPlugin;
 import com.kongkongye.np.mcmenu.api.action.ActionManager;
 import com.kongkongye.np.mcmenu.api.display.DisplayManager;
 import com.kongkongye.np.mcmenu.api.item.ItemManager;
+import com.kongkongye.np.mcmenu.api.lang.LangManager;
 import com.kongkongye.np.mcmenu.api.menu.McMenu;
 import com.kongkongye.np.mcmenu.api.menu.MenuManager;
 import com.kongkongye.np.mcmenu.api.menu.tree.TreeMenuManager;
 import com.kongkongye.np.mcmenu.api.service.CommandService;
 import com.kongkongye.np.mcmenu.display.McDisplayManager;
 import com.kongkongye.np.mcmenu.event.MenuReloadEvent;
+import com.kongkongye.np.mcmenu.lang.McLangManager;
 import com.kongkongye.np.mcmenu.menu.tree.McTreeMenuManager;
-import com.kongkongye.np.mcmenu.util.LogUtil;
+import com.kongkongye.np.mcmenu.util.Util;
 
 public class McMenuApi {
     public static McMenu mcMenu;
@@ -20,15 +22,18 @@ public class McMenuApi {
      * 重载插件
      */
     public static void reload() {
-        LogUtil.info(0, "插件重载...");
+        Util.info(0, "插件重载...");
         //所有玩家退出菜单
-        LogUtil.info(1, "所有玩家退出菜单...");
+        Util.info(1, "所有玩家退出菜单...");
         McMenuPlugin.instance.getServer().getOnlinePlayers().values().forEach(getActionManager()::exit);
         //配置重载
-        LogUtil.info(1, "配置重载...");
+        Util.info(1, "配置重载...");
         McMenuPlugin.instance.reload();
+        //语言重载
+        Util.info(1, "语言重载...");
+        ((McLangManager)getLangManager()).reload();
         //树状菜单重载
-        LogUtil.info(1, "树状菜单重载...");
+        Util.info(1, "树状菜单重载...");
         ((McTreeMenuManager)getTreeMenuManager()).reload();
         //显示管理器重载
         ((McDisplayManager)getDisplayManager()).reload();
@@ -77,5 +82,12 @@ public class McMenuApi {
      */
     public static CommandService getCommandService() {
         return mcMenu.getCommandService();
+    }
+
+    /**
+     * 获取语言管理器
+     */
+    public static LangManager getLangManager() {
+        return mcMenu.getLangManager();
     }
 }

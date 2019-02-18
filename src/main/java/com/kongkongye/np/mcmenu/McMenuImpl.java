@@ -7,6 +7,7 @@ import com.kongkongye.np.mcmenu.api.menu.tree.TreeMenuManager;
 import com.kongkongye.np.mcmenu.api.service.CommandService;
 import com.kongkongye.np.mcmenu.display.McDisplayManager;
 import com.kongkongye.np.mcmenu.item.McItemManager;
+import com.kongkongye.np.mcmenu.lang.McLangManager;
 import com.kongkongye.np.mcmenu.menu.McMenuManager;
 import com.kongkongye.np.mcmenu.menu.tree.McTreeMenuManager;
 
@@ -16,6 +17,7 @@ public class McMenuImpl implements McMenu {
     private McItemManager itemManager;
     private McActionManager actionManager;
     private McTreeMenuManager treeMenuManager;
+    private McLangManager langManager;
 
     public McMenuImpl() {
         menuManager = new McMenuManager();
@@ -23,6 +25,7 @@ public class McMenuImpl implements McMenu {
         itemManager = new McItemManager();
         actionManager = new McActionManager();
         treeMenuManager = new McTreeMenuManager();
+        langManager = new McLangManager();
     }
 
     public void initOnLoad() {
@@ -33,6 +36,7 @@ public class McMenuImpl implements McMenu {
     public void initOnEnable() {
         treeMenuManager.initOnEnable();
         displayManager.initOnEnable();
+        langManager.initOnEnable();
     }
 
     public void initOnDisable() {
@@ -66,5 +70,10 @@ public class McMenuImpl implements McMenu {
     @Override
     public TreeMenuManager getTreeMenuManager() {
         return treeMenuManager;
+    }
+
+    @Override
+    public McLangManager getLangManager() {
+        return langManager;
     }
 }
