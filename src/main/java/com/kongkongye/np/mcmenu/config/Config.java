@@ -53,8 +53,9 @@ public class Config {
         loreTitle = ColorUtil.convertColor(config.getString("lore.title"));
         loreDescriptions = config.getStringList("lore.descriptions").stream().map(ColorUtil::convertColor).collect(Collectors.toList());
         loreMenu = ColorUtil.convertColor(config.getString("lore.menu"));
-        prefixLength = loreMenu.indexOf("?");
-        suffixLength = loreMenu.length() - 1 - loreMenu.indexOf("?");
+        String[] args = loreMenu.split("\\{menu\\}", 2);
+        prefixLength = args[0].length();
+        suffixLength = args[1].length();
 
         displayLimit = new HashMap<>();
         for (String s:config.getStringList("display.limit")) {

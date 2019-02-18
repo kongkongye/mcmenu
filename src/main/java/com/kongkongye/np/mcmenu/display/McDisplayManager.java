@@ -228,7 +228,9 @@ public class McDisplayManager implements DisplayManager {
         //pre
         List<String> preMenus = new ArrayList<>();//may be null
         for (int i=0;i<index;i++) {
-            preMenus.add(ParamUtil.convert(config.getDisplayFormatNotCurrent(), false, menus.get(i)));
+            Map<String, Object> paramsNotCurrent = new HashMap<>();
+            paramsNotCurrent.put("content", menus.get(i));
+            preMenus.add(ParamUtil.convert(config.getDisplayFormatNotCurrent(), paramsNotCurrent, false));
         }
         String pre = String.join(config.getDisplayFormatSeparator(), preMenus);
         if (!pre.isEmpty()) {
