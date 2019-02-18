@@ -6,15 +6,15 @@ import com.kongkongye.np.mcmenu.api.menu.Menu;
 import com.kongkongye.np.mcmenu.api.menu.MenuFactory;
 
 /**
- * 抽象菜单
- * (所有菜单实现都应该继承此类)
+ * abstract menu
+ * (all menu implementation need inherit this class)
  */
 public abstract class AbstractMenu implements Menu {
     private MenuFactory menuFactory;
     private Player player;
     private int slot;
     /**
-     * 进入菜单时玩家的位置
+     * the location of player on join menu
      */
     private Location location;
 

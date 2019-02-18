@@ -40,11 +40,11 @@ public class McMenuPlugin extends PluginBase implements Listener {
 
     @Override
     public void onLoad() {
-        //读取配置
+        //load config
         reload();
         //McMenuImpl
         ((McMenuImpl)McMenuApi.mcMenu).initOnLoad();
-        //注册服务
+        //register default service
         getServer().getServiceManager().register(CommandService.class, new McCommandService(), this, ServicePriority.NORMAL);
     }
 
@@ -52,7 +52,7 @@ public class McMenuPlugin extends PluginBase implements Listener {
     public void onEnable() {
         //McMenuImpl
         ((McMenuImpl)McMenuApi.mcMenu).initOnEnable();
-        //注册事件
+        //register events
         getServer().getPluginManager().registerEvents(this, this);
     }
 
@@ -64,7 +64,7 @@ public class McMenuPlugin extends PluginBase implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void onPlayerQuit(PlayerQuitEvent event) {
-        //退出
+        //exit
         McMenuApi.getActionManager().exit(event.getPlayer());
     }
 
@@ -76,7 +76,7 @@ public class McMenuPlugin extends PluginBase implements Listener {
                 AbstractMenu abstractMenu = (AbstractMenu) menu;
                 double distance = abstractMenu.getLocation().distance(event.getPlayer().getLocation());
                 if (distance >= config.getExitMoveDistance()) {
-                    //退出
+                    //exit
                     McMenuApi.getActionManager().exit(event.getPlayer());
                 }
 
@@ -100,55 +100,55 @@ public class McMenuPlugin extends PluginBase implements Listener {
         Location location = player.getLocation();
         Config config = McMenuPlugin.config;
         Menu menu = McMenuApi.getMenuManager().getMenu(player);
-        if (menu != null) {//在菜单内
+        if (menu != null) {//in menu
             int slot = event.getSlot();
-            if (slot == 0) {//左移
+            if (slot == 0) {//move left
                 McMenuApi.getActionManager().left(player);
-                //取消事件
+                //cancel event
 //                event.setCancelled();
                 stick(player);
                 //声音
                 if (config.getSoundLeft() != null) {
                     player.getLevel().addSound(location, config.getSoundLeft(), config.getSoundVolume(), config.getSoundPitch(), player);
                 }
-            }else if (slot == 8) {//右移
+            }else if (slot == 8) {//move right
                 McMenuApi.getActionManager().right(player);
-                //取消事件
+                //cancel event
 //                event.setCancelled();
                 stick(player);
                 //声音
                 if (config.getSoundRight() != null) {
                     player.getLevel().addSound(location, config.getSoundRight(), config.getSoundVolume(), config.getSoundPitch(), player);
                 }
-            }else if (slot == menu.getSlot()) {//确认
+            }else if (slot == menu.getSlot()) {//confirm
                 McMenuApi.getActionManager().confirm(player);
-                //取消事件
+                //cancel event
 //                event.setCancelled();
                 stick(player);
                 //声音
                 if (config.getSoundConfirm() != null) {
                     player.getLevel().addSound(location, config.getSoundConfirm(), config.getSoundVolume(), config.getSoundPitch(), player);
                 }
-            }else if (slot == 7) {//返回
+            }else if (slot == 7) {//back
                 McMenuApi.getActionManager().back(player);
-                //取消事件
+                //cancel event
 //                event.setCancelled();
                 stick(player);
-                //声音
+                //sound
                 if (config.getSoundBack() != null) {
                     player.getLevel().addSound(location, config.getSoundBack(), config.getSoundVolume(), config.getSoundPitch(), player);
                 }
             }
-        }else {//不在菜单内
+        }else {//not in menu
             Item item = event.getItem();
             String menuName = McMenuApi.getItemManager().getMenuName(item);
             if (menuName != null) {
-                //加入菜单
+                //join menu
                 McMenuApi.getActionManager().join(player, event.getSlot(), menuName);
-                //取消事件
+                //cancel event
 //                event.setCancelled();
                 stick(player);
-                //声音
+                //sound
                 if (config.getSoundJoin() != null) {
                     player.getLevel().addSound(location, config.getSoundJoin(), config.getSoundVolume(), config.getSoundPitch(), player);
                 }
@@ -174,7 +174,7 @@ public class McMenuPlugin extends PluginBase implements Listener {
                     return false;
                 }
                 McMenuApi.reload();
-                //提示
+                //tip
                 Util.send(sender, 5010);
                 return true;
             }else if (args[0].equalsIgnoreCase("get")) {
@@ -245,36 +245,36 @@ public class McMenuPlugin extends PluginBase implements Listener {
     }
 
     /**
-     * 命令: 获取菜单
+     * command: get menu
      */
     private void cmdGet(Player p, String menuName) {
-        //权限
+        //permission
         if (!p.isOp() && !config.isGetCmd()) {
             Util.send(p, 5030);
             return;
         }
-        //请将要设置菜单的物品放在手上
+        //place item on hand
         Item item = p.getInventory().getItemInHand();
         if (item == null || item.getId() == 0) {
             Util.send(p, 5040);
             return;
         }
-        //非普通物品
+        //not normal item
         if (!isNormalItem(item)) {
             Util.send(p, 5050);
             return;
         }
-        //菜单不存在
+        //menu not exist
         MenuFactory menuFactory = McMenuApi.getMenuManager().getMenuFactory(menuName);
         if (menuFactory == null) {
             Util.send(p, 5060, menuName);
             return;
         }
-        //获取
+        //get
         try {
             item = McMenuApi.getItemManager().saveMenuInfo(item, menuName);
             p.getInventory().setItemInHand(item);
-            //提示
+            //tip
             Util.send(p, 5070, menuName);
         } catch (Exception e) {
             e.printStackTrace();
@@ -283,7 +283,7 @@ public class McMenuPlugin extends PluginBase implements Listener {
     }
 
     /**
-     * 是否是普通物品
+     * check if normal item
      */
     private boolean isNormalItem(Item item) {
         return !item.hasCompoundTag();
@@ -314,23 +314,23 @@ public class McMenuPlugin extends PluginBase implements Listener {
     }
 
     /**
-     * 重新读取配置
+     * reload config
      */
     public void reload() {
-        //生成文件
+        //generate file
         generate();
-        //读取
+        //load
         Config config = new Config();
         config.load(new cn.nukkit.utils.Config(new File(getDataFolder(), Constants.FILE_CONFIG)));
-        //读取成功,替换
+        //load success, replace old config
         McMenuPlugin.config = config;
     }
 
     /**
-     * 生成文件(只有菜单配置目录不存在时才会生成)
+     * generate files (only generate when menu config folder is not exist)
      */
     private void generate() {
-        //配置目录已经存在
+        //config folder exist
         if (getDataFolder().exists()) {
             Util.info(1, "config folder exist.");
             return;

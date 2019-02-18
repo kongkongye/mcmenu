@@ -2,15 +2,15 @@ package com.kongkongye.np.mcmenu.menu.tree;
 
 public enum Mode {
     /**
-     * 停留
+     * idle
      */
     stay,
     /**
-     * 返回
+     * back menu
      */
     back,
     /**
-     * 退出
+     * exit menu
      */
     exit,
     ;

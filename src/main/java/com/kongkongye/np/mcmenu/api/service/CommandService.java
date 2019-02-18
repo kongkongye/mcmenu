@@ -3,12 +3,12 @@ package com.kongkongye.np.mcmenu.api.service;
 import cn.nukkit.Player;
 
 /**
- * 命令服务
+ * command service
  */
 public interface CommandService {
     /**
-     * 执行命令
-     * @return 是否成功
+     * execute command
+     * @return if success
      */
     boolean execute(Player player, String cmd);
 }

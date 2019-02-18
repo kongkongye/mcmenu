@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 树状菜单配置
+ * tree menu config
  */
 public class TreeMenuConfig {
     private String name;
@@ -50,7 +50,7 @@ public class TreeMenuConfig {
     }
 
     /**
-     * @return 不为null
+     * @return not null
      */
     public List<TreeMenuConfig> getSub() {
         return sub;

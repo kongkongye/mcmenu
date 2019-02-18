@@ -16,11 +16,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * 树状菜单
+ * tree menu
  */
 public class TreeMenu extends AbstractMenu {
     /**
-     * 索引位置,从0开始
+     * index position, start from 0
      */
     private List<Integer> indexes = new ArrayList<>();
 
@@ -35,9 +35,9 @@ public class TreeMenu extends AbstractMenu {
 
         List<TreeMenuConfig> brothers = getBrothers();
         int index = indexes.get(indexes.size()-1);
-        //索引-1
-        if (index <= 0) {//最前
-            if (getMenuFactory().isLoop()) {//到最后
+        //index-1
+        if (index <= 0) {//in first
+            if (getMenuFactory().isLoop()) {//to last
                 index = brothers.size()-1;
             }
         }else {
@@ -54,9 +54,9 @@ public class TreeMenu extends AbstractMenu {
 
         List<TreeMenuConfig> brothers = getBrothers();
         int index = indexes.get(indexes.size()-1);
-        //索引+1
-        if (index >= brothers.size()-1) {//最后
-            if (getMenuFactory().isLoop()) {//到最前
+        //index+1
+        if (index >= brothers.size()-1) {//in last
+            if (getMenuFactory().isLoop()) {//to first
                 index = 0;
             }
         }else {
@@ -70,16 +70,16 @@ public class TreeMenu extends AbstractMenu {
     @Override
     public Display confirm() {
         TreeMenuConfig config = getCurrent();
-        //子菜单优先
+        //sub menu first
         if (!config.getSub().isEmpty()) {
             indexes.add(0);
             return getDisplay();
         }
-        //命令次之
+        //then command
         if (!Strings.isNullOrEmpty(config.getCommand())) {
             boolean success = McMenuApi.getCommandService().execute(getPlayer(), config.getCommand());
             if (success) {
-                //任然是当前菜单,菜单模式才会生效
+                //menu mode will take effect when still on this menu
                 Menu menu = McMenuApi.getMenuManager().getMenu(getPlayer());
                 if (menu == this) {
                     switch (config.getMode()) {
@@ -88,7 +88,7 @@ public class TreeMenu extends AbstractMenu {
                         case back:
                             McMenuApi.getActionManager().back(getPlayer());
                             break;
-                        case exit://返回null会退出菜单
+                        case exit://return null will exit menu
                             return null;
                         default:
                             throw new RuntimeException();
@@ -105,18 +105,18 @@ public class TreeMenu extends AbstractMenu {
     public Display back() {
         Preconditions.checkArgument(indexes.size() >= 1);
 
-        //退出
+        //exit
         if (indexes.size() == 1) {
             return null;
         }
 
-        //返回上一级
+        //back
         indexes.remove(indexes.size()-1);
         return getDisplay();
     }
 
     /**
-     * 获取显示
+     * get display
      */
     public Display getDisplay() {
         TreeMenuConfig current = getCurrent();
@@ -125,16 +125,16 @@ public class TreeMenu extends AbstractMenu {
     }
 
     /**
-     * 获取父菜单配置
-     * @return 可为null表示已经是根菜单
+     * get the config of parent menu
+     * @return may return null representing root menu
      */
     private TreeMenuConfig getParent() {
         return get(1);
     }
 
     /**
-     * 获取同级(兄弟)配置列表
-     * @return 不为null或空
+     * get brother menu configs
+     * @return not null or empty
      */
     private List<TreeMenuConfig> getBrothers() {
         TreeMenuConfig parent = getParent();
@@ -142,8 +142,8 @@ public class TreeMenu extends AbstractMenu {
     }
 
     /**
-     * 获取当前菜单配置
-     * @return 不为null
+     * get the config of current menu
+     * @return not null
      */
     private TreeMenuConfig getCurrent() {
         return get(0);

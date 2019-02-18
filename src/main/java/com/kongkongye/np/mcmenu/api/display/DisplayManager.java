@@ -3,17 +3,17 @@ package com.kongkongye.np.mcmenu.api.display;
 import cn.nukkit.Player;
 
 /**
- * 显示管理器
+ * display manager
  */
 public interface DisplayManager {
     /**
-     * 注册显示条
+     * register display bar
      */
     void registerDisplayBar(DisplayBar displayBar);
 
     /**
-     * 显示
-     * @param display null表示清除显示
+     * display
+     * @param display null represents clear display
      */
     void display(Player player, Display display);
 }

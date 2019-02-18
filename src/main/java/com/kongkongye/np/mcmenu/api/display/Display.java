@@ -3,22 +3,22 @@ package com.kongkongye.np.mcmenu.api.display;
 import java.util.List;
 
 /**
- * 显示
+ * display
  */
 public interface Display {
     /**
-     * 获取菜单列表
+     * get menus
      */
     List<String> getMenus();
 
     /**
-     * 获取当前菜单位置
-     * @return 位置,从0开始
+     * get the index of current menu
+     * @return index, start from 0
      */
     int getIndex();
 
     /**
-     * 获取当前菜单项描述
+     * get the description of current menu
      */
     String getDescription();
 }

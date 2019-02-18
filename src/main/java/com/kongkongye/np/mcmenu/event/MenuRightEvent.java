@@ -6,7 +6,7 @@ import cn.nukkit.event.HandlerList;
 import com.kongkongye.np.mcmenu.api.menu.Menu;
 
 /**
- * 菜单右移事件
+ * menu move right event
  */
 public class MenuRightEvent extends Event {
     private static HandlerList handlerList = new HandlerList();

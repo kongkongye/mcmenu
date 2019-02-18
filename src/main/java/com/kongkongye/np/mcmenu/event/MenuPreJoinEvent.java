@@ -7,8 +7,8 @@ import cn.nukkit.event.HandlerList;
 import com.kongkongye.np.mcmenu.api.menu.MenuFactory;
 
 /**
- * 菜单加入前事件<br>
- * 取消事件则取消加入
+ * menu pre join event<br>
+ * cancel event will cancel join
  */
 public class MenuPreJoinEvent extends Event implements Cancellable {
     private static HandlerList handlerList = new HandlerList();

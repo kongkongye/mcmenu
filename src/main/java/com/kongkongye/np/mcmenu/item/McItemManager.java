@@ -15,7 +15,7 @@ public class McItemManager implements ItemManager {
     public String getMenuName(Item item) {
         String[] lore = item.getLore();
 
-        //标识检测
+        //check flag
         if (lore.length >= 1) {
             if (!lore[0].equals(McMenuPlugin.config.getLoreCheck())) {
                 return null;
@@ -24,7 +24,7 @@ public class McItemManager implements ItemManager {
             return null;
         }
 
-        //获取信息
+        //get info
         String data = lore[lore.length-1];
         try {
             return data.substring(McMenuPlugin.config.getPrefixLength(), data.length()-McMenuPlugin.config.getSuffixLength());
@@ -49,23 +49,7 @@ public class McItemManager implements ItemManager {
         Map<String, Object> dataParams = new HashMap<>();
         dataParams.put("menu", menuName);
         lore.add(ParamUtil.convert(McMenuPlugin.config.getLoreMenu(), dataParams, false));
-        //保存
+        //save
         return item.setLore(lore.toArray(new String[0]));
     }
-
-//    public String save(ConfigSection config) throws Exception {
-//        String content = Util.encode(config);
-//        byte[] bytes = content.getBytes(Charsets.UTF_8);
-//        bytes = Util.compress(bytes);
-//        bytes = Util.toBase64(bytes);
-//        return new String(bytes, Charsets.UTF_8);
-//    }
-//
-//    public ConfigSection load(String content) throws Exception {
-//        byte[] bytes = content.getBytes(Charsets.UTF_8);
-//        bytes = Util.fromBase64(bytes);
-//        bytes = Util.uncompress(bytes);
-//        String s = new String(bytes, Charsets.UTF_8);
-//        return Util.decode(s);
-//    }
 }

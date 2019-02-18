@@ -4,38 +4,38 @@ import cn.nukkit.Player;
 import com.kongkongye.np.mcmenu.api.menu.Menu;
 
 /**
- * 动作管理
+ * action manager
  */
 public interface ActionManager {
     /**
-     * 加入菜单
-     * 会先退出旧菜单(如果有)
-     * @return null表示加入失败
+     * join menu<br>
+     * will exit old menu first(if exist)
+     * @return null represents join fail
      */
     Menu join(Player player, int slot, String menuName);
 
     /**
-     * 左移
+     * move left
      */
     void left(Player p);
 
     /**
-     * 右移
+     * move right
      */
     void right(Player p);
 
     /**
-     * 确认
+     * confirm
      */
     void confirm(Player p);
 
     /**
-     * 返回
+     * back
      */
     void back(Player p);
 
     /**
-     * 退出
+     * exit
      */
     void exit(Player p);
 }

@@ -39,48 +39,48 @@ public class McDisplayManager implements DisplayManager {
 
     private Map<String, DisplayBar> displayBars = new HashMap<>();
     /**
-     * 显示条 玩家 内容
+     * display-bar player content
      */
     private Map<DisplayBar, Context> displayBarContexts = new HashMap<>();
 
     public void initOnLoad() {
         displayBarTitleManager = new DisplayBarTitleManager();
-        //注册显示条: title
+        //register display bar: title
         displayBarTitle = new DisplayBarTitleManager.DisplayBarTitle();
         registerDisplayBar(displayBarTitle);
-        //注册显示条: subTitle
+        //register display bar: subTitle
         displayBarSubTitle = new DisplayBarTitleManager.DisplayBarSubTitle();
         registerDisplayBar(displayBarSubTitle);
-        //注册显示条: chat
+        //register display bar: chat
         displayBarChat = new DisplayBarChat();
         registerDisplayBar(displayBarChat);
-        //注册显示条: tip
+        //register display bar: tip
         displayBarTip = new DisplayBarTip();
         registerDisplayBar(displayBarTip);
-        //注册显示条: actionbar
+        //register display bar: actionbar
         displayBarActionBar = new DisplayBarActionBar();
         registerDisplayBar(displayBarActionBar);
-        //注册显示条: popup
+        //register display bar: popup
         displayBarPopup = new DisplayBarPopup();
         registerDisplayBar(displayBarPopup);
     }
 
     /**
-     * 在此阶段前需要注册完毕显示条
+     * registering display bar must be finished before this phase
      */
     public void initOnEnable() {
         reload();
     }
 
     public void reload() {
-        //刷新显示计时器
+        //refresh display scheduler
         displayBarContexts.forEach((displayBar, displayContext) -> {
-            //取消旧的
+            //cancel old
             if (displayContext.taskId != null) {
                 McMenuPlugin.instance.getServer().getScheduler().cancelTask(displayContext.taskId);
                 displayContext.taskId = null;
             }
-            //设置新的
+            //set new
             Integer refresh = McMenuPlugin.config.getDisplayRefresh().get(displayBar.getName());
             if (refresh != null) {
                 displayContext.taskId = McMenuPlugin.instance.getServer().getScheduler().scheduleRepeatingTask(McMenuPlugin.instance,
@@ -93,15 +93,15 @@ public class McDisplayManager implements DisplayManager {
     @Override
     public void registerDisplayBar(DisplayBar displayBar) {
         Preconditions.checkArgument(displayBars.putIfAbsent(displayBar.getName(), displayBar) == null,
-                "显示条已经注册: "+displayBar.getName());
+                "display bar is registered: "+displayBar.getName());
         displayBarContexts.put(displayBar, new Context());
-        //日志
+        //log
         Util.info(0, 1080, displayBar.getName());
     }
 
     @Override
     public void display(Player player, Display display) {
-        //先清除显示
+        //first clear display
         DisplayBar mainBar = displayBars.get(McMenuPlugin.config.getDisplayBarMain());
         if (mainBar != null) {
             displayBarContexts.get(mainBar).contexts.remove(player);
@@ -113,26 +113,26 @@ public class McDisplayManager implements DisplayManager {
             subBar.clear(player);
         }
 
-        //再显示
+        //then display
         if (display != null) {
-            //显示菜单
+            //show menu
             HoleLine holeLine = getHoleLine(convertGlobalParam(player, display.getMenus()), display.getIndex());
             if (mainBar != null) {
                 Integer limit = McMenuPlugin.config.getDisplayLimit().get(McMenuPlugin.config.getDisplayBarMain());
-                if (limit == null) {//无限制
+                if (limit == null) {//no limit
                     display(mainBar, player, holeLine.pre+holeLine.current+holeLine.post);
-                }else {//有限制
-                    if (limit <= holeLine.current.length()) {//最多显示一个菜单
+                }else {//has limit
+                    if (limit <= holeLine.current.length()) {//can display one menu at most
                         display(mainBar, player, holeLine.current);
-                    }else {//还有余地
+                    }else {//can display more than one menu
                         int left = limit - holeLine.current.length();
                         int leftSingle = left/2;
 
-                        int preMore = leftSingle - holeLine.pre.length();//前多余的空格
-                        int postMore = leftSingle - holeLine.post.length();//后多余的空格
+                        int preMore = leftSingle - holeLine.pre.length();//more spaces forward
+                        int postMore = leftSingle - holeLine.post.length();//more spaces afterward
 
-                        int preTotalSpace = leftSingle;//分配给前的总空格
-                        int postTotalSpace = leftSingle;//分配给后的总空格
+                        int preTotalSpace = leftSingle;//all spaces allocated forward
+                        int postTotalSpace = leftSingle;//all spaces allocated afterward
                         if (preMore > 0) {
                             preTotalSpace = holeLine.pre.length();
                             postTotalSpace = leftSingle+preMore;
@@ -141,40 +141,42 @@ public class McDisplayManager implements DisplayManager {
                             preTotalSpace = leftSingle+postMore;
                         }
 
-                        //前
+                        //forward
                         String pre;
-                        if (preTotalSpace >= holeLine.pre.length()) {//可以全部显示
+                        if (preTotalSpace >= holeLine.pre.length()) {//can display all
                             pre = holeLine.pre;
-                        }else {//只能显示部分
+                        }else {//can display part
                             pre = holeLine.pre.substring(holeLine.pre.length()-preTotalSpace);
-                            //前需要处理,损失一点,把第一个颜色(如&7)前的内容全部抛弃(防止显示一段缺颜色格式的文本,影响显示效果)
+                            //need process forward, loss a bit,
+                            //throw away all contents before first color (&7 for example)
+                            //(to avoid display a fragment of text that has no color, affecting the effect of display)
                             int startIndex = -1;
                             for (int i = 0;i<pre.length();i++) {
                                 if (pre.charAt(i) == ColorUtil.MC_COLOR_CHAR.charAt(0)) {
-                                    //没有下个字符了
+                                    //no next char
                                     if (i >= pre.length()-1) {
                                         break;
                                     }
 
-                                    //检测是颜色字符(不包括格式字符)
+                                    //check if is color string (format string is not included)
                                     if ("0123456789abcdef".indexOf(pre.charAt(i+1)) != -1) {
                                         startIndex = i;
                                         break;
                                     }
                                 }
                             }
-                            if (startIndex == -1) {//没有找到颜色字符,全部抛弃
+                            if (startIndex == -1) {//throw away all contents when no color string is found
                                 pre = "";
                             }else {
                                 pre = pre.substring(startIndex);
                             }
                         }
 
-                        //后
+                        //afterward
                         String post;
-                        if (postTotalSpace >= holeLine.post.length()) {//可以全部显示
+                        if (postTotalSpace >= holeLine.post.length()) {//can display all
                             post = holeLine.post;
-                        }else {//只能显示部分
+                        }else {//can display part
                             post = holeLine.post.substring(0, postTotalSpace);
                         }
 
@@ -182,7 +184,7 @@ public class McDisplayManager implements DisplayManager {
                     }
                 }
             }
-            //显示描述
+            //display description
             if (subBar != null) {
                 Map<String, Object> paramsDescription = new HashMap<>();
                 paramsDescription.put("content", convertGlobalParam(player, display.getDescription()));
@@ -201,7 +203,7 @@ public class McDisplayManager implements DisplayManager {
             content = content.trim();
         }
         displayBar.display(player, content);
-        //缓存
+        //cache
         Preconditions.checkNotNull(displayBarContexts.get(displayBar)).contexts.put(player, content);
     }
 
@@ -218,13 +220,13 @@ public class McDisplayManager implements DisplayManager {
     }
 
     /**
-     * 获取整行字符串
+     * get the hole line of string
      */
     private HoleLine getHoleLine(List<String> menus, int index) {
         Config config = McMenuPlugin.config;
 
         //pre
-        List<String> preMenus = new ArrayList<>();//可能为空
+        List<String> preMenus = new ArrayList<>();//may be null
         for (int i=0;i<index;i++) {
             preMenus.add(ParamUtil.convert(config.getDisplayFormatNotCurrent(), false, menus.get(i)));
         }
@@ -236,7 +238,7 @@ public class McDisplayManager implements DisplayManager {
         pre = ColorUtil.trimExtraColors(pre);
 
         //post
-        List<String> postMenus = new ArrayList<>();//可能为空
+        List<String> postMenus = new ArrayList<>();//may be null
         for (int i=index+1;i<menus.size();i++) {
             Map<String, Object> paramsNotCurrent = new HashMap<>();
             paramsNotCurrent.put("content", menus.get(i));

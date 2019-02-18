@@ -19,73 +19,73 @@ public class McMenuApi {
     public static McMenu mcMenu;
 
     /**
-     * 重载插件
+     * reload plugin
      */
     public static void reload() {
         Util.info(0, 1000);
-        //所有玩家退出菜单
+        //all player exit menu
         Util.info(1, 1010);
         McMenuPlugin.instance.getServer().getOnlinePlayers().values().forEach(getActionManager()::exit);
-        //配置重载
+        //reload config
         Util.info(1, 1020);
         McMenuPlugin.instance.reload();
-        //语言重载
+        //reload language
         Util.info(1, 1030);
         ((McLangManager)getLangManager()).reload();
-        //树状菜单重载
+        //reload tree menus
         Util.info(1, 1040);
         ((McTreeMenuManager)getTreeMenuManager()).reload();
-        //显示管理器重载
+        //reload display manager
         ((McDisplayManager)getDisplayManager()).reload();
-        //事件
+        //event after reload
         MenuReloadEvent menuReloadEvent = new MenuReloadEvent();
         McMenuPlugin.instance.getServer().getPluginManager().callEvent(menuReloadEvent);
     }
 
     /**
-     * 获取菜单管理器
+     * get menu manager
      */
     public static MenuManager getMenuManager() {
         return mcMenu.getMenuManager();
     }
 
     /**
-     * 获取树状菜单管理器
+     * get tree menu manager
      */
     public static TreeMenuManager getTreeMenuManager() {
         return mcMenu.getTreeMenuManager();
     }
 
     /**
-     * 获取显示管理器
+     * get display manager
      */
     public static DisplayManager getDisplayManager() {
         return mcMenu.getDisplayManager();
     }
 
     /**
-     * 获取物品管理器
+     * get item manager
      */
     public static ItemManager getItemManager() {
         return mcMenu.getItemManager();
     }
 
     /**
-     * 获取动作管理器
+     * get action manager
      */
     public static ActionManager getActionManager() {
         return mcMenu.getActionManager();
     }
 
     /**
-     * 获取命令服务
+     * get command service
      */
     public static CommandService getCommandService() {
         return mcMenu.getCommandService();
     }
 
     /**
-     * 获取语言管理器
+     * get language manager
      */
     public static LangManager getLangManager() {
         return mcMenu.getLangManager();

@@ -13,14 +13,14 @@ import java.io.File;
 import java.util.*;
 
 /**
- * 树状菜单管理器
+ * tree menu manager
  */
 public class McTreeMenuManager implements TreeMenuManager {
     private Set<File> folders = new HashSet<>();
     private Set<File> files = new HashSet<>();
 
     public void initOnLoad() {
-        //注册默认树状菜单目录
+        //register default tree menu folder
         registerFolder(new File(McMenuPlugin.instance.getDataFolder(), Constants.FOLDER_MENUS));
     }
 
@@ -29,13 +29,13 @@ public class McTreeMenuManager implements TreeMenuManager {
     }
 
     public void reload() {
-        //删除旧的注册
+        //delete old registers
         Lists.newArrayList(McMenuApi.getMenuManager().getMenuFactories()).forEach(menuFactory -> {
             if (menuFactory instanceof TreeMenuFactory) {
                 McMenuApi.getMenuManager().removeMenuFactory(menuFactory.getName());
             }
         });
-        //注册新的
+        //register new ones
         folders.forEach(this::reloadFolder);
         files.forEach(this::reloadFile);
     }
@@ -43,14 +43,14 @@ public class McTreeMenuManager implements TreeMenuManager {
     @Override
     public void registerFolder(File folder) {
         folders.add(folder);
-        //日志
+        //log
         Util.info(0, 1060, folder.getPath());
     }
 
     @Override
     public void registerFile(File file) {
         files.add(file);
-        //日志
+        //log
         Util.info(0, 1070, file.getPath());
     }
 

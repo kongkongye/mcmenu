@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * title&subTitle显示条管理器
+ * title&subTitle display manager
  */
 public class DisplayBarTitleManager {
     public static class DisplayBarTitle implements DisplayBar {
@@ -53,7 +53,7 @@ public class DisplayBarTitleManager {
     private Map<Player, Context> contexts = new HashMap<>();
 
     /**
-     * 清除显示
+     * clear title
      */
     public void clearTitle(Player player) {
         Context context = contexts.get(player);
@@ -64,7 +64,7 @@ public class DisplayBarTitleManager {
     }
 
     /**
-     * 清除显示
+     * clear sub title
      */
     public void clearSubTitle(Player player) {
         Context context = contexts.get(player);
@@ -96,9 +96,9 @@ public class DisplayBarTitleManager {
                 subTitle = "";
             }
             if (title.isEmpty() && subTitle.isEmpty()) {
-                //删除缓存
+                //delete cache
                 contexts.remove(player);
-                //清除title
+                //clear title
                 player.clearTitle();
             }else {
                 player.sendTitle(title, subTitle, 0, 20*60*60, 0);

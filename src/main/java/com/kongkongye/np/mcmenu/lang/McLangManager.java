@@ -17,7 +17,7 @@ public class McLangManager implements LangManager{
     private Map<Integer, String> lang;
 
     public void initOnLoad() {
-        //重载语言
+        //reload lang
         reload();
     }
 
@@ -27,7 +27,7 @@ public class McLangManager implements LangManager{
     }
 
     /**
-     * 重载语言配置
+     * reload lang
      */
     public void reload() {
         File langFile = new File(McMenuPlugin.instance.getDataFolder(), LANG_FILE);

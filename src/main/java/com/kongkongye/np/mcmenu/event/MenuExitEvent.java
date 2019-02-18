@@ -6,7 +6,7 @@ import cn.nukkit.event.HandlerList;
 import com.kongkongye.np.mcmenu.api.menu.Menu;
 
 /**
- * 菜单退出事件
+ * menu exit event
  */
 public class MenuExitEvent extends Event {
     private static HandlerList handlerList = new HandlerList();

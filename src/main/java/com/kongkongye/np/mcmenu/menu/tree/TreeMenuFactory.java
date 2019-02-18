@@ -8,7 +8,7 @@ import com.kongkongye.np.mcmenu.api.menu.MenuFactory;
 import java.util.List;
 
 /**
- * 树状菜单工厂
+ * tree menu factory
  */
 public class TreeMenuFactory implements MenuFactory {
     private String name;
@@ -38,7 +38,7 @@ public class TreeMenuFactory implements MenuFactory {
 
     @Override
     public Menu produce(Player player, int slot) {
-        Preconditions.checkArgument(!treeMenuConfigs.isEmpty(), "菜单为空: "+name);
+        Preconditions.checkArgument(!treeMenuConfigs.isEmpty(), "no menu: "+name);
         return new TreeMenu(this, player, slot, player.getLocation());
     }
 

@@ -4,51 +4,51 @@ import cn.nukkit.Player;
 import com.kongkongye.np.mcmenu.api.display.Display;
 
 /**
- * 菜单
+ * menu
  */
 public interface Menu {
     /**
-     * 获取所属的菜单工厂
+     * get the MenuFactory the menu belongs
      */
     MenuFactory getMenuFactory();
 
     /**
-     * 获取菜单绑定的玩家
+     * get the player the menu belongs
      */
     Player getPlayer();
 
     /**
-     * 获取快捷栏中菜单中心的位置
+     * get the slot in quickbar of menu item
      */
     int getSlot();
 
     /**
-     * 获取显示
-     * @return 不为null
+     * get display
+     * @return not null
      */
     Display getDisplay();
 
     /**
-     * 左移
-     * @return 不为null
+     * move left
+     * @return not null
      */
     Display left();
 
     /**
-     * 右移
-     * @return 不为null
+     * move right
+     * @return not null
      */
     Display right();
 
     /**
-     * 确认
-     * @return null会退出菜单
+     * confirm
+     * @return null will exit menu
      */
     Display confirm();
 
     /**
-     * 返回
-     * @return null会退出菜单
+     * back
+     * @return null will exit menu
      */
     Display back();
 }

@@ -13,19 +13,19 @@ import java.util.Map;
 
 public class McMenuManager implements MenuManager {
     /**
-     * 菜单名 菜单工厂
+     * menu-name menu-factory
      */
     private Map<String, MenuFactory> menuFactories = new HashMap<>();
 
     /**
-     * 玩家 菜单
+     * player menu
      */
     private Map<Player, Menu> menus = new HashMap<>();
 
     @Override
     public void register(MenuFactory menuFactory) {
         menuFactories.put(menuFactory.getName(), menuFactory);
-        //日志
+        //log
         Util.info(1, 1050, menuFactory.getName());
     }
 

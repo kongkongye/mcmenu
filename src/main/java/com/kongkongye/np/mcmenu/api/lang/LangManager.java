@@ -1,13 +1,13 @@
 package com.kongkongye.np.mcmenu.api.lang;
 
 /**
- * 语言管理器
+ * lang manager
  */
 public interface LangManager {
     /**
-     * 获取语言
-     * @param id 语言ID
-     * @param args 变量
+     * get the lang
+     * @param id lang ID
+     * @param args params
      */
     String get(int id, Object... args);
 }

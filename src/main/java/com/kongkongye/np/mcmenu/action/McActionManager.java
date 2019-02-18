@@ -15,40 +15,40 @@ import com.kongkongye.np.mcmenu.util.Util;
 public class McActionManager implements ActionManager {
     @Override
     public Menu join(Player player, int slot, String menuName) {
-        //菜单未找到
+        //menu not found
         MenuFactory menuFactory = McMenuApi.getMenuManager().getMenuFactory(menuName);
         if (menuFactory == null) {
             Util.send(player, 5090, menuName);
             return null;
         }
 
-        //加入前事件
+        //pre join menu event
         MenuPreJoinEvent menuPreJoinEvent = new MenuPreJoinEvent(player, menuFactory);
         McMenuPlugin.instance.getServer().getPluginManager().callEvent(menuPreJoinEvent);
         if (menuPreJoinEvent.isCancelled()) {
             return null;
         }
 
-        //开始加入
+        //start joining
 
-        //先退出(如果有)
+        //exit first(if has)
         Menu menu = McMenuApi.getMenuManager().getMenu(player);
         if (menu != null) {
             exit(player);
         }
 
-        //再加入
+        //then join
         menu = menuFactory.produce(player, slot);
         ((McMenuManager)McMenuApi.getMenuManager()).onJoin(menu);
 
-        //显示
+        //display
         McMenuApi.getDisplayManager().display(player, menu.getDisplay());
 
-        //加入后事件
+        //event after join
         MenuJoinEvent menuJoinEvent = new MenuJoinEvent(player, menu);
         McMenuPlugin.instance.getServer().getPluginManager().callEvent(menuJoinEvent);
 
-        //提示
+        //tip
         Util.send(menuJoinEvent.getPlayer(), 5100, menuName);
 
         return menu;
@@ -58,11 +58,11 @@ public class McActionManager implements ActionManager {
     public void left(Player p) {
         Menu menu = McMenuApi.getMenuManager().getMenu(p);
         if (menu != null) {
-            //左移
+            //move left
             Display display = Preconditions.checkNotNull(menu.left());
-            //显示
+            //display
             McMenuApi.getDisplayManager().display(p, display);
-            //左移后事件
+            //event after move
             MenuLeftEvent menuLeftEvent = new MenuLeftEvent(p, menu);
             McMenuPlugin.instance.getServer().getPluginManager().callEvent(menuLeftEvent);
         }
@@ -72,11 +72,11 @@ public class McActionManager implements ActionManager {
     public void right(Player p) {
         Menu menu = McMenuApi.getMenuManager().getMenu(p);
         if (menu != null) {
-            //右移
+            //move right
             Display display = Preconditions.checkNotNull(menu.right());
-            //显示
+            //display
             McMenuApi.getDisplayManager().display(p, display);
-            //右移后事件
+            //event after move
             MenuRightEvent menuRightEvent = new MenuRightEvent(p, menu);
             McMenuPlugin.instance.getServer().getPluginManager().callEvent(menuRightEvent);
         }
@@ -86,12 +86,12 @@ public class McActionManager implements ActionManager {
     public void confirm(Player p) {
         Menu menu = McMenuApi.getMenuManager().getMenu(p);
         if (menu != null) {
-            //确认
+            //confirm
             Display display = menu.confirm();
             if (display != null) {
-                //显示
+                //display
                 McMenuApi.getDisplayManager().display(p, display);
-                //确认事件
+                //event after confirm
                 MenuConfirmEvent menuConfirmEvent = new MenuConfirmEvent(p, menu);
                 McMenuPlugin.instance.getServer().getPluginManager().callEvent(menuConfirmEvent);
             }else {
@@ -104,12 +104,12 @@ public class McActionManager implements ActionManager {
     public void back(Player p) {
         Menu menu = McMenuApi.getMenuManager().getMenu(p);
         if (menu != null) {
-            //返回
+            //back
             Display display = menu.back();
             if (display != null) {
-                //显示
+                //display
                 McMenuApi.getDisplayManager().display(p, display);
-                //返回事件
+                //event after back
                 MenuBackEvent menuBackEvent = new MenuBackEvent(p, menu);
                 McMenuPlugin.instance.getServer().getPluginManager().callEvent(menuBackEvent);
             }else {
@@ -123,12 +123,12 @@ public class McActionManager implements ActionManager {
         Menu menu = McMenuApi.getMenuManager().getMenu(p);
         if (menu != null) {
             ((McMenuManager)McMenuApi.getMenuManager()).onExit(p);
-            //显示
+            //display
             McMenuApi.getDisplayManager().display(p, null);
-            //退出事件
+            //event after exit
             MenuExitEvent menuExitEvent = new MenuExitEvent(p, menu);
             McMenuPlugin.instance.getServer().getPluginManager().callEvent(menuExitEvent);
-            //提示
+            //tip
             Util.send(p, 5110);
         }
     }

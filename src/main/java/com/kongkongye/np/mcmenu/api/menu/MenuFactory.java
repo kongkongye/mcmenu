@@ -3,27 +3,27 @@ package com.kongkongye.np.mcmenu.api.menu;
 import cn.nukkit.Player;
 
 /**
- * 菜单工厂
+ * menu factory
  */
 public interface MenuFactory {
     /**
-     * 获取菜单名
+     * get the name of menu
      */
     String getName();
 
     /**
-     * 获取菜单是否循环
+     * get if loop of the menu
      */
     boolean isLoop();
 
     /**
-     * 是否使用默认的菜单退出方式
-     * 包括移动退出与打开容器界面退出
+     * if use default exit method of menu<br>
+     * it contains exit on move and exit on open inventory
      */
     boolean isUseDefaultExitMethod();
 
     /**
-     * 生产出菜单
+     * produce menu
      */
     Menu produce(Player player, int slot);
 }

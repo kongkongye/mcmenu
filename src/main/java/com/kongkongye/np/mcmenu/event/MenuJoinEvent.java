@@ -6,7 +6,7 @@ import cn.nukkit.event.HandlerList;
 import com.kongkongye.np.mcmenu.api.menu.Menu;
 
 /**
- * 菜单加入事件
+ * menu join event
  */
 public class MenuJoinEvent extends Event {
     private static HandlerList handlerList = new HandlerList();

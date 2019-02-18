@@ -3,16 +3,16 @@ package com.kongkongye.np.mcmenu.api.menu.tree;
 import java.io.File;
 
 /**
- * 树状菜单管理器
+ * tree menu manager
  */
 public interface TreeMenuManager {
     /**
-     * 注册菜单目录(会自动读取目录内的全部直接子文件)
+     * register menu folder (will load all direct files in the folder)
      */
     void registerFolder(File folder);
 
     /**
-     * 注册菜单文件
+     * register menu file
      */
     void registerFile(File file);
 }

@@ -4,7 +4,7 @@ import cn.nukkit.event.Event;
 import cn.nukkit.event.HandlerList;
 
 /**
- * 菜单重载事件
+ * menu reload event
  */
 public class MenuReloadEvent extends Event {
     private static HandlerList handlerList = new HandlerList();

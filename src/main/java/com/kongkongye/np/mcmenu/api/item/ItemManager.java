@@ -3,18 +3,18 @@ package com.kongkongye.np.mcmenu.api.item;
 import cn.nukkit.item.Item;
 
 /**
- * 物品管理器
+ * item manager
  */
 public interface ItemManager {
     /**
-     * 获取物品上的菜单名
-     * @return null表示无菜单
+     * get the name on item
+     * @return null represents no menu info
      */
     String getMenuName(Item item) ;
 
     /**
-     * 保存菜单信息到物品
-     * (会先清空物品上的lore)
+     * save menu info to item
+     * (will clear lore on item first)
      */
     Item saveMenuInfo(Item item, String menuName) throws Exception;
 }

@@ -1,0 +1,35 @@
+#file name is 'menu-name.yml'
+
+#is loop, when true, move right on last will turn into first, move left on first will turn into last
+loop: true
+
+#global params using PlaceholderAPI plugin, please refer to https://nukkitx.com/resources/placeholderapi.104/ for details
+menus:
+    #menu name, global params is allowed
+  - name: "teleport"
+    #menu description, optional, global params is allowed, color char & is allowed
+    description: "teleport function"
+    #command (execute when confirm, / prefix is not needed),optional
+    command: ""
+    #mode, take effect on command success (no operation on command fail), default is exit
+    #  stay: idle
+    #  back: back
+    #  exit: exit
+    mode: "exit"
+    #sub menus(join sub menus on confirm), optional
+    sub:
+      - name: "spawn"
+        description: "teleport to spawn"
+        command: "spawn"
+      - name: "back"
+        description: "back to last teleport location"
+        command: "back"
+      - name: "home"
+        description: "back to home"
+        command: "home"
+  - name: "menu reload"
+    command: "mcmenu reload"
+  - name: "pet"
+    command: "pet"
+  - name: "welcome"
+    description: "&a%player% &7(&d%player_ping%ms&7)"
