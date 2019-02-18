@@ -6,7 +6,9 @@ import com.kongkongye.np.mcmenu.api.item.ItemManager;
 import com.kongkongye.np.mcmenu.util.ParamUtil;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class McItemManager implements ItemManager {
     @Override
@@ -38,11 +40,15 @@ public class McItemManager implements ItemManager {
         //check
         lore.add(McMenuPlugin.config.getLoreCheck());
         //title
-        item = item.setCustomName(ParamUtil.convert(McMenuPlugin.config.getLoreTitle(), false, menuName));
+        Map<String, Object> titleParams = new HashMap<>();
+        titleParams.put("menu", menuName);
+        item = item.setCustomName(ParamUtil.convert(McMenuPlugin.config.getLoreTitle(), titleParams, false));
         //descriptions
         lore.addAll(McMenuPlugin.config.getLoreDescriptions());
         //data
-        lore.add(McMenuPlugin.config.getLoreMenu().replace("?", menuName));
+        Map<String, Object> dataParams = new HashMap<>();
+        dataParams.put("menu", menuName);
+        lore.add(ParamUtil.convert(McMenuPlugin.config.getLoreMenu(), dataParams, false));
         //保存
         return item.setLore(lore.toArray(new String[0]));
     }

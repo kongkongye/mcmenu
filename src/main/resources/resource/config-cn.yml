@@ -1,0 +1,93 @@
+#菜单获取方式
+get:
+  #是否允许普通玩家通过命令(/mcmenu get <菜单名>)获取菜单
+  #(OP始终允许)
+  cmd: true
+
+#菜单退出方式
+exit:
+  #移动退出
+  move:
+    #是否开启
+    enable: true
+    #移动距离,实数,>=0
+    distance: 0.5
+  #打开容器界面退出
+  openInventory:
+    enable: false
+
+#菜单物品信息显示
+lore:
+  #菜单物品标识,可使用颜色字符&
+  check: "&e+&a菜单&e+"
+  #物品标题, 可使用颜色字符&, {menu} 代表菜单名
+  title: "&a{menu}"
+  #描述列表, 可使用颜色字符&
+  descriptions:
+    - "&e将菜单物品放在快捷栏"
+    - "&e进入菜单/确认: &7点击菜单物品"
+    - "&e返回: &7点击快捷栏第八格"
+    - "&e退出: &7移动即可退出菜单"
+    - "&e左移: &7点击快捷栏第一格"
+    - "&e右移: &7点击快捷栏第九格"
+  #菜单名行, 可使用颜色字符&, {menu} 代表菜单名
+  menu: "&7({menu})"
+
+#显示
+#可用显示条:
+#  title: 屏幕中央Title
+#  subTitle: 屏幕中央副Title
+#  tip: 在subTitle下
+#  actionbar: 在tip下
+#  popup: 在actionbar下
+#  chat: 聊天窗口
+display:
+  #字数限制,格式'显示条 限制',默认无限制
+  limit:
+    - "title 16"
+    - "subTitle 32"
+    - "tip 64"
+    - "actionbar 64"
+    - "popup 64"
+  #刷新,格式'显示条 刷新间隔(单位tick)',默认不刷新
+  #有些显示会淡化,所以需要刷新
+  refresh:
+    - "tip 30"
+    - "actionbar 30"
+    - "popup 30"
+  bar:
+    #主条,用来显示菜单
+    main: "subTitle"
+    #次条,用来显示描述
+    sub: "actionbar"
+  #显示格式
+  format:
+    #开头,可使用颜色字符&
+    start: ""
+    #结尾,可使用颜色字符&
+    end: ""
+    #中间(分隔符),可使用颜色字符&
+    separator: " &c| "
+    #当前菜单项,其中 {content} 代表项内容,可使用颜色字符&
+    current: "&a{content}"
+    #非当前菜单项,其中 {content} 代表项内容,可使用颜色字符&
+    notCurrent: "&7{content}"
+    #描述的格式,其中 {content} 代表描述内容,可使用颜色字符&
+    description: "&e{content}"
+
+#声音(操作反馈,只在用快捷栏操作时发出)
+sound:
+  #声音大小,实数
+  volume: 1.0
+  #声音的pitch,实数
+  pitch: 1.0
+  #加入,可选
+  join: "RANDOM_ORB"
+  #左移,可选
+  left: "RANDOM_POP"
+  #右移,可选
+  right: "RANDOM_POP"
+  #确认,可选
+  confirm: "RANDOM_POP"
+  #返回,可选
+  back: "RANDOM_POP"

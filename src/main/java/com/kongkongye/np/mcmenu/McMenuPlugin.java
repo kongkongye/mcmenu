@@ -332,10 +332,10 @@ public class McMenuPlugin extends PluginBase implements Listener {
     private void generate() {
         //配置目录已经存在
         if (getDataFolder().exists()) {
-            Util.info(1, "插件配置目录存在,不生成文件.");
+            Util.info(1, "config folder exist.");
             return;
         }
-        Util.info(1, "生成文件.");
+        Util.info(1, "generate config folder.");
 
         ZipInputStream jis = null;
         FileOutputStream fos = null;

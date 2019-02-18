@@ -1,29 +1,29 @@
-#此语言文件版本
-#如果文件结构改变,则版本号会改变
-#如果配置值改变,则版本号不会改变
+#lang file version
+#if config structure change, version will change
+#if config value change, version will not change
 ver: 1
 
-#日志
-lang-1000: "插件重载..."
-lang-1010: "所有玩家退出菜单..."
-lang-1020: "配置重载..."
-lang-1030: "语言重载..."
-lang-1040: "树状菜单重载..."
-lang-1050: "注册菜单: {0}"
-lang-1060: "[树状菜单]注册目录: {0}"
-lang-1070: "[树状菜单]注册文件: {0}"
-lang-1080: "注册显示条: {0}"
+#log
+lang-1000: "reloading plugin..."
+lang-1010: "all players exit menu..."
+lang-1020: "reloading config..."
+lang-1030: "reloading language..."
+lang-1040: "reloading tree menus..."
+lang-1050: "register menu: {0}"
+lang-1060: "[Tree Menu]register menu folder: {0}"
+lang-1070: "[Tree Menu]register menu file: {0}"
+lang-1080: "register display bar: {0}"
 
-#玩家提示
-lang-5000: "&c没有权限重载配置!"
-lang-5010: "&a重载配置."
-lang-5020: "&c此命令只能玩家发出!"
-lang-5030: "&c服务器禁止非OP通过此方式获取菜单!"
-lang-5040: "&c请将要设置菜单的物品放在手上!"
-lang-5050: "&c此物品可能包含额外的信息,无法设置为菜单!"
-lang-5060: "&c菜单不存在: &e{0}"
-lang-5070: "&a成功设置菜单: &e{0}"
-lang-5080: "&c设置菜单出错: &e{0}"
-lang-5090: "&c菜单未找到: &e{0}"
-lang-5100: "&e进入菜单: &d{0}"
-lang-5110: "&7退出菜单."
+#player tip
+lang-5000: "&cno permission!"
+lang-5010: "&areload plugin."
+lang-5020: "&cthis command can only be sent by player!"
+lang-5030: "&cno-op is not allowed to get menu in this way!"
+lang-5040: "&cplease put a item on hand!"
+lang-5050: "&cthis item may contain extra data,can't be converted to menu!"
+lang-5060: "&cmenu not exist: &e{0}"
+lang-5070: "&aset menu success: &e{0}"
+lang-5080: "&cset menu fail: &e{0}"
+lang-5090: "&cmenu not found: &e{0}"
+lang-5100: "&ejoin menu: &d{0}"
+lang-5110: "&7exit menu."

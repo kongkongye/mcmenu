@@ -184,7 +184,9 @@ public class McDisplayManager implements DisplayManager {
             }
             //显示描述
             if (subBar != null) {
-                display(subBar, player, ParamUtil.convert(McMenuPlugin.config.getDisplayFormatDescription(), false, convertGlobalParam(player, display.getDescription())));
+                Map<String, Object> paramsDescription = new HashMap<>();
+                paramsDescription.put("content", convertGlobalParam(player, display.getDescription()));
+                display(subBar, player, ParamUtil.convert(McMenuPlugin.config.getDisplayFormatDescription(), paramsDescription, false));
             }
         }
     }
@@ -236,7 +238,9 @@ public class McDisplayManager implements DisplayManager {
         //post
         List<String> postMenus = new ArrayList<>();//可能为空
         for (int i=index+1;i<menus.size();i++) {
-            postMenus.add(ParamUtil.convert(config.getDisplayFormatNotCurrent(), false, menus.get(i)));
+            Map<String, Object> paramsNotCurrent = new HashMap<>();
+            paramsNotCurrent.put("content", menus.get(i));
+            postMenus.add(ParamUtil.convert(config.getDisplayFormatNotCurrent(), paramsNotCurrent, false));
         }
         String post = String.join(config.getDisplayFormatSeparator(), postMenus);
         if (!post.isEmpty()) {
@@ -246,7 +250,9 @@ public class McDisplayManager implements DisplayManager {
         post = ColorUtil.trimExtraColors(post);
 
         //current
-        String current = ParamUtil.convert(config.getDisplayFormatCurrent(), false, menus.get(index));
+        Map<String, Object> paramsCurrent = new HashMap<>();
+        paramsCurrent.put("content", menus.get(index));
+        String current = ParamUtil.convert(config.getDisplayFormatCurrent(), paramsCurrent, false);
 
         return new HoleLine(pre, post, current);
     }
